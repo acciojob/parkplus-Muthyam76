@@ -79,7 +79,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     public void deleteParkingLot(int parkingLotId) {
         if (parkingLotRepository1.findById(parkingLotId).isPresent()) {
             ParkingLot parkingLot=parkingLotRepository1.findById(parkingLotId).get();
-            parkingLotRepository1.delete(parkingLot);
+            parkingLotRepository1.deleteById(parkingLotId);
 
         }
     }

@@ -25,8 +25,8 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
         User user=userRepository3.findById(userId).get();
         ParkingLot parkingLot=parkingLotRepository3.findById(parkingLotId).get();
-        if(user==null || parkingLot==null)
-            throw new Exception("Cannot make reservation");
+      //  if(user==null || parkingLot==null)
+         //   throw new Exception("Cannot make reservation");
         Spot a=null;
         List<Spot>spots=parkingLot.getSpotList();
         int n=0;

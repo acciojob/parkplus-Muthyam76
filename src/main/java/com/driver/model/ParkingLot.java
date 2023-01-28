@@ -1,13 +1,13 @@
 package com.driver.model;
 
-import javax.annotation.Generated;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class ParkingLot {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String address;

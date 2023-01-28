@@ -19,8 +19,8 @@ public class ParkPlus {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ParkPlus.class, args);
-		ParkingLotServiceImpl parkingLotService=new ParkingLotServiceImpl();
-		System.out.println(parkingLotService.addParkingLot("a1","abd").getName());
+		//ParkingLotServiceImpl parkingLotService=new ParkingLotServiceImpl();
+		//System.out.println(parkingLotService.addParkingLot("a1","abd").getName());
 
 
 	}

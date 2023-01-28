@@ -17,6 +17,8 @@ public class ParkingLotController {
     //findAll should never be used
     @Autowired
     ParkingLotServiceImpl parkingLotService;
+    @Autowired
+    ParkingLot parkingLot;
 
     @PostMapping("/add")
     public ResponseEntity<ParkingLot> addParkingLot(@RequestParam String name, @RequestParam String address) {

@@ -23,7 +23,7 @@ public class ReservationServiceImpl implements ReservationService {
     ParkingLotRepository parkingLotRepository3;
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
-        User user=userRepository3.findById(userId).get();
+      /*  User user=userRepository3.findById(userId).get();
         ParkingLot parkingLot=parkingLotRepository3.findById(parkingLotId).get();
       //  if(user==null || parkingLot==null)
          //   throw new Exception("Cannot make reservation");
@@ -54,7 +54,48 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setUser(user);
         reservation.setNumberOfHours(timeInHours);
         reservationRepository3.save(reservation);
+        return reservation;*/
+        if (!userRepository3.findById(userId).isPresent() || !parkingLotRepository3.findById(parkingLotId).isPresent()) {
+            throw new Exception("Cannot make reservation");
+        }
+
+        User user = userRepository3.findById(userId).get();
+        ParkingLot parkingLot = parkingLotRepository3.findById(parkingLotId).get();
+        List<Spot>spots=parkingLot.getSpotList();
+        int n=0;
+        Spot a=null;
+        for(Spot spot:spots){
+            if(spot.getOccupied()) {
+                if (spot.getSpotType().equals(SpotType.FOUR_WHEELER))
+                    n = 4;
+                else if (spot.getSpotType().equals(SpotType.TWO_WHEELER))
+                    n = 2;
+                else if (spot.getSpotType().equals(SpotType.OTHERS))
+                    n = Integer.MAX_VALUE;
+
+                if (n >= numberOfWheels) {
+                    if (a == null || a.getPricePerHour() >= spot.getPricePerHour()) {
+                        a = spot;
+                    }
+                }
+            }
+
+        }
+        Reservation reservation = new Reservation();
+        reservation.setNumberOfHours(timeInHours);
+        reservation.setSpot(a);
+        reservation.setUser(user);
+
+        //Bidirectional
+        a.getReservationList().add(reservation);
+        user.getReservationList().add(reservation);
+
+        userRepository3.save(user);
+        spotRepository3.save(a);
+
         return reservation;
+
+
 
 
 
